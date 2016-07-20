@@ -1,0 +1,17 @@
+<ion-view view-title="Discover">
+  <ion-content class="padding">
+      <div class="bluetooth-loading">
+          <img src="img/loading.gif">
+          <span class="bluetooth-loading-text">
+              Discovering devices...
+          </span>
+      </div>
+
+      <ion-list>
+          <ion-item class="item-icon-right" ng-click="authorizeDevice(device)" ng-repeat="device in devices">
+              {{device.name}}
+              <i class="icon ion-chevron-right"></i>
+          </ion-item>
+      </ion-list>
+  </ion-content>
+</ion-view>

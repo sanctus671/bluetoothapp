@@ -1,0 +1,20 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-calm">
+        <h1 class="title">{{selectedDevice.name}}</h1>
+        <div class="button modal-button" ng-click="authorizeDeviceModal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="number" placeholder="Access code" autofocus ng-model="selectedDevice.code">
+            </label>
+            
+            <div class="padding">
+                <button class="button button-block button-calm" ng-click="openDevice()">Connect</button>
+            </div>  
+            <div class="error-text" ng-show="selectedDevice.error">
+                Invalid access code
+            </div>             
+        </div>
+    </ion-content>
+</ion-modal-view>

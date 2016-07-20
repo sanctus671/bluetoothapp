@@ -1,0 +1,39 @@
+<ion-view>
+    <ion-nav-title>
+        {{device.name}}
+    </ion-nav-title>    
+    <ion-content class="padding">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getDeviceData()">
+        </ion-refresher>        
+        <div class="device-information">
+            <h1>Battery status: <span class="device-details" ng-class="{
+                good:device.batteryStatus >= 70, 
+                ok:device.batteryStatus < 70 && device.batteryStatus > 50,
+                bad: device.batteryStatus <=50 && device.batteryStatus > 20,
+                critical: device.batteryStatus <= 20}">{{device.batteryStatus}}%</span></h1>
+            <h1>Memory status: <span class="device-details" ng-class="{
+                critical:device.batteryStatus >= 70, 
+                bad:device.batteryStatus < 70 && device.batteryStatus > 50,
+                ok: device.batteryStatus <=50 && device.batteryStatus > 20,
+                good: device.batteryStatus <= 20}">{{device.batteryStatus}}%</span></h1>
+        </div>
+        
+        <button class="button button-block button-calm" ng-click="collectAllData()">Collect all data</button> 
+        <button class="button button-block button-calm" ng-click="collectNewData()">Collect only new data</button>
+        <button class="button button-block button-assertive" ng-click="disconnect()">Disconnect</button>    
+        
+        <div class="collected-data" ng-if="device.data.length > 0">
+        <h4>Collected device data</h4>
+        <ion-list>
+            <ion-item class="item-icon-right item-icon-left" ng-repeat="data in device.data  | orderBy: '-id'">
+                <i class="icon ion-android-download" ng-click="downloadFile(data)"></i>
+                {{data.dataId}} {{device.name}}
+                <i class="icon ion-android-share-alt" ng-click="shareFile(data)"></i>
+            </ion-item>
+        </ion-list>
+        </div>
+        
+    </ion-content>
+</ion-view>

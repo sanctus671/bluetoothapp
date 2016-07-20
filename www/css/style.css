@@ -1,0 +1,72 @@
+/* general styles */
+
+.error-text{
+    color:red;
+    text-align: center;
+}
+
+.modal .button.modal-button{
+    border:none;
+    background-color:transparent;
+}
+
+.spinner-container{
+    text-align: center;
+}
+
+/* discover styles */
+
+.bluetooth-loading{
+    text-align:center;
+}
+
+.bluetooth-loading img{
+    max-width:100%;
+}
+
+.bluetooth-loading .bluetooth-loading-text{
+    font-size: 24px;
+    padding-bottom: 30px;
+    display: table;
+    width: 100%;
+}
+
+.device-information{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.device-information .device-details.critical{
+    color:red;
+}
+.device-information .device-details.bad{
+    color:orange;
+}
+.device-information .device-details.ok{
+    color:#17C1E5;
+}
+.device-information .device-details.good{
+    color:#64FE82;
+}
+
+.collected-success{
+    text-align:center;
+}
+
+.collected-data{
+    margin-top:40px
+}
+
+.collected-data h4{
+    text-align:center;
+}
+
+
+/* data page */
+
+.no-data{
+    text-align:center;
+}
+
+
+

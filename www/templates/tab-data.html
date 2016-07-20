@@ -1,0 +1,27 @@
+<ion-view view-title="Data">
+  <ion-content>
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getCollectedData()">
+        </ion-refresher>   
+      <div ng-show="collectedData.length < 1" class="no-data padding">
+          No data collected
+      </div>
+        <div ng-show="collectedData.length > 0">
+            <div class="padding">
+                <button class="button button-block button-assertive" ng-click="shouldShowDelete = !shouldShowDelete">
+                    <span ng-show="!shouldShowDelete">Remove data items</span>
+                    <span ng-show="shouldShowDelete">Cancel</span>
+                </button>
+            </div>  
+            <ion-list show-delete="shouldShowDelete">
+                <ion-item class="item-icon-right item-icon-left" ng-repeat="data in collectedData | orderBy: '-id'">
+                    <i class="icon ion-android-download" ng-click="downloadFile(data)"></i>
+                    {{data.dataId}} {{data.deviceName}}
+                    <i class="icon ion-android-share-alt" ng-click="shareFile(data)"></i>
+                    <ion-delete-button class="ion-minus-circled" ng-click="removeDataItem(data.dataId)"></ion-delete-button>                
+                </ion-item>
+            </ion-list>
+        </div>
+  </ion-content>
+</ion-view>
