@@ -1,12 +1,13 @@
 angular.module('app.services', [])
+//TODO: replace with actual bluetooth connection service
 .service('BluetoothService', function ($q, $timeout, DataService){
 
-    this.getDevices = function(){
+    this.getDevices = function(){ //returns an array of objects with properties: id, name, code, memoryStatus, batteryStatus
         var deferred = $q.defer();         
         $timeout(function(){deferred.resolve(devices);},500);
         return deferred.promise;        
     };
-    this.getDevice = function(id, code){
+    this.getDevice = function(id, code){ //return a single object with properties: id, name, code, memoryStatus, batteryStatus ONLY if the given code matches the devices code
         var deferred = $q.defer();         
         $timeout(function(){
             for (var index in devices){
@@ -18,7 +19,7 @@ angular.module('app.services', [])
         },500);
         return deferred.promise;        
     };
-    this.getAllDeviceData = function(id, code){
+    this.getAllDeviceData = function(id, code){ //return data for a given device id if it exists as an object with properties: deviceId, deviceName, dataFile
         var deferred = $q.defer();         
         $timeout(function(){
             for (var index in deviceData){
@@ -30,19 +31,20 @@ angular.module('app.services', [])
         },2000);
         return deferred.promise;        
     };
-    this.getNewDeviceData = function(id, code){
+    this.getNewDeviceData = function(id, code){ //same as above except this checks with the local storage service below to ensure no double ups are stored locally
         var deferred = $q.defer();
-        var existingData = DataService.getAllData();
+        var existingData = DataService.getAllData(); //locally stored data which has been retreived in the past
         $timeout(function(){
             for (var index in deviceData){
                 if (parseInt(deviceData[index].deviceId) === parseInt(id)){
                     var saveFile = true;
                     for (var index2 in existingData){
                         if(existingData[index2].dataFile === deviceData[index].dataFile){
-                            saveFile = false;                          
+                            saveFile = false; //data already exists so dont store it again                       
                         }
                     }
                     if (saveFile){
+                        //do this if the data wasnt found
                         DataService.saveData(deviceData[index]);
                     }
                 }
@@ -55,7 +57,7 @@ angular.module('app.services', [])
     
 })
 
-.service('DataService', function (){
+.service('DataService', function (){ //local storage service. this can most likely wont need changes
     this.getAllData = function(){
         var data = window.localStorage.bt_data ? JSON.parse(window.localStorage.bt_data) : [];     
         return data;
